@@ -1,9 +1,6 @@
 module.exports = async (client, message, args) => {
     /*
-        //////////////////
-        //   rmstrike   //
-        //  by Hydrogen //
-        //////////////////
+        rmstrike, by Hydrogen.
     */
     if (message.member.hasPermission('KICK_MEMBERS')) {   // lol
         let member = message.mentions.users.first();
@@ -13,6 +10,8 @@ module.exports = async (client, message, args) => {
             if (id) {
                 if (client.data.guilds.get(message.guild.id).strikes[member.id][strikeID]) {
                     let strike = client.data.guilds.get(message.guild.id).strikes[member.id][strikeID]
+                    delete guilds.get(msg.guild.id).strikes[member.id][strikeID]
+                    client.util.embed(client, message, `The strike \`${strikeID}\` has been removed.`, 'green');
                 }
             } else {
                 client.util.embed(client, message, 'You need to add a strike ID to remove it!', 'red');
