@@ -55,10 +55,14 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
+    if (!client.data.guilds.get(message.guild.id)) {
+        client.data.guilds.set(message.guild.id, config.defaultGuildDB)
+    }
+    prefix = client.data.guilds.get(message.guild.id).prefix;
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
-    if (!message.content.startsWith(config.prefix)) return;
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    if (!message.content.startsWith(prefix)) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     try {
         const cmdFile = require(`./commands/${command}`);
@@ -70,11 +74,5 @@ client.on('message', (message) => {
         log.warn(`${message.author.tag} just tried to execute a command that doesn't exist!`);
     }
 });
-
-client.on('guildCreate', guild => {
-    if (!client.data.guilds.get(guild.id)) { // uhm sure i guess
-        client.data.guilds.set(guild.id, config.defaultGuildDB)
-    }
-})
 
 client.login(config.token);
