@@ -11,7 +11,7 @@ module.exports = async (client, message, args) => {
                 if (client.data.guilds.get(message.guild.id).strikes[member.id][strikeID]) {
                     let strike = client.data.guilds.get(message.guild.id).strikes[member.id][strikeID]
                     delete client.data.guilds.get(message.guild.id).strikes[member.id][strikeID]
-                    client.util.embed(client, message, `The strike \`${strikeID}\` has been removed.`, 'green');
+                    client.util.embed(client, message, `Ok. I removed the strike with the ID \`${strikeID}\` from ${member}`);
                 }
             } else {
                 client.util.embed(client, message, 'You need to add a strike ID to remove it!', 'red');

@@ -8,24 +8,10 @@ module.exports = async (client, message, args) => {
     if (!strikeUser) return client.util.embed(client, message, 'You need to mention a user to strike them!', 'red');
     if (reason < 1) reason = 'No reason specified';
 
-    /*
-    var before = client.data.strikes.get(`${message.guild.id}${strikeUser.id}`);
-    if(!before) { var before = []; };
-    before.push([message.author.id, reason, c(7)]);
-    client.data.strikes.set(`${message.guild.id}${strikeUser.id}`, before);
-    client.util.embed(client, message, `Ok. I have striken ${strikeUser} for ${reason}`);
-    strikeUser.send({embed: {
-        author: {name: `Hey ${strikeUser.user.username}`, icon_url: strikeUser.avatarURL},
-        color: 0x36393F,
-        description: `Oi! You've just been stricken in ${message.guild.name} by ${message.author.tag} for ${reason}. What have you done now?`,
-        footer: {text: `v${package.version}`}
-    }});
-    */
-    
     let info = client.data.guilds.get(message.guild.id);
     let uid = c(12);
 
-    if (isEmpty(info.strikes)) {    // isEmpty??
+    if (isEmpty(info.strikes)) { 
         info.strikes[strikeUser.id] = {};
         info.strikes[strikeUser.id][uid] = {
             reason: reason,
@@ -53,7 +39,7 @@ module.exports = async (client, message, args) => {
     client.data.guilds.set(message.guild.id, info);
     client.util.embed(client, message, `Ok. I have striken ${strikeUser} for \`${reason}\``);
     strikeUser.send({ embed: {
-        author: { name: `Hey ${strikeUser.user.username}`, icon_url: strikeUser.avatarURL} ,
+        author: { name: `Hey ${strikeUser.user.username}`, icon_url: strikeUser.user.avatarURL} ,
         color: 0x36393F,
         description: `Oi! You've just been stricken in ${message.guild.name} by ${message.author.tag} for ${reason}. What have you done now?`,
         footer: { text: `v${package.version}` }

@@ -1,5 +1,5 @@
 ///////////////////////////////////
-//      Shift by Hayden Brown    //
+//     Shift by Hayden Brown     //
 //            v1.0.0             //
 //  Copyright Hayden Brown 2019  //
 ///////////////////////////////////
@@ -55,12 +55,13 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-    if (!client.data.guilds.get(message.guild.id)) {
-        client.data.guilds.set(message.guild.id, config.defaultGuildDB)
-    }
-    prefix = client.data.guilds.get(message.guild.id).prefix;
+
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
+    if (!client.data.guilds.get(message.guild.id)) {
+        client.data.guilds.set(message.guild.id, config.defaultGuildDB);
+    };
+    prefix = client.data.guilds.get(message.guild.id).prefix;
     if (!message.content.startsWith(prefix)) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
