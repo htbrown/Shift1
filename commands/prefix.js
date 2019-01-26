@@ -8,7 +8,7 @@ module.exports = async (client, message, args) => {
             let guild = client.data.guilds.get(message.guild.id);
             guild.prefix = prefix;
             client.data.guilds.set(message.guild.id, guild);
-            client.util.embed(client, message, `Your prefix has been changed to \`${prefix}\`.`, 'green');
+            client.util.embed(client, message, `Sure! The prefix for this server has been changed to \`${prefix}\`.`);
         } else {
             client.util.embed(client, message, 'You need to add a prefix to change to it.', 'red');
         }

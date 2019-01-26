@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7361b3c7-c956-4796-a8c5-ef30bcbea9e1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/rmstrike.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/rmstrike.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/strike.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/strike.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/strikes.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/strikes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/000042.ldb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/000044.ldb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/000047.ldb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/000048.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/CURRENT" beforeDir="false" afterPath="$PROJECT_DIR$/data/guilds/CURRENT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/data/guilds/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/data/guilds/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guilds/MANIFEST-000046" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users/000031.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users/CURRENT" beforeDir="false" afterPath="$PROJECT_DIR$/data/users/CURRENT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/data/users/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/data/users/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users/MANIFEST-000030" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/prefix.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/prefix.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -82,11 +63,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
               <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/commands/prefix.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="9" column="60" lean-forward="true" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -140,6 +130,7 @@
         <option value="$PROJECT_DIR$/commands/strike.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/commands/prefix.js" />
       </list>
     </option>
   </component>
@@ -212,16 +203,15 @@
       <workItem from="1548175100157" duration="9348000" />
       <workItem from="1548259067799" duration="869000" />
       <workItem from="1548399890657" duration="1037000" />
-      <workItem from="1548502069044" duration="1960000" />
+      <workItem from="1548502069044" duration="2536000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24496000" />
+    <option name="totallyTimeSpent" value="25072000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -403,6 +393,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commands/prefix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="60" lean-forward="true" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
         </state>
       </provider>
     </entry>
