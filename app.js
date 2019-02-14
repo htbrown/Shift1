@@ -11,6 +11,9 @@ const client = new Discord.Client();
 
 client.data = enmap.multi(['guilds', 'users'], level);
 
+const webserver = require('./web/webserver.js');
+webserver.boot();
+
 log.info('Getting ready...');
 function sleep(milliseconds) {
     var start = new Date().getTime();
@@ -18,7 +21,7 @@ function sleep(milliseconds) {
         if ((new Date().getTime() - start) > milliseconds){
             break;
         }
-    }
+    } // or i have a better solution
 }
 
 client.on('ready', () => {
@@ -54,14 +57,86 @@ client.on('ready', () => {
     });
 });
 
-client.on('message', (message) => {
+client.on('guildMemberAdd', (member) => {
+    let channel = client.data.guilds.get(member.guild.id).welcomeChannel;
+    let guild = member.guild;
+    if (guild.channels.find('name', channel)) {
+        let guildChannel = guild.channels.find('name', channel);
+        let final_msg = client.data.guilds.get(guild.id).welcomeMsg.replace('{user}', member.user.tag).replace('{server}', guild.name);
+        guildChannel.send({
+            embed: {
+                author: {
+                    name: `Hey ${member.user.username}`,
+                    icon_url: member.user.avatarURL
+                },
+                description: final_msg,
+                color: 0x36393F,
+                footer: {
+                    text: `v${package.version}`
+                } 
+            }
+        })
+    } else {
+        guild.owner.send({
+            embed: {
+                author: {
+                    name: `Hey ${guild.owner.user.username}`,
+                    icon_url: guild.owner.user.avatarURL
+                },
+                description: 'Seems like your welcome message channel isn\'t quite right. If you need help, join the support server which can be found in the info command.',
+                color: 0x36393F,
+                footer: {
+                    text: `v${package.version}`
+                } 
+            }
+        })
+    }
+}) // New Member
 
+client.on('guildMemberRemove', (member) => {
+    let channel = client.data.guilds.get(member.guild.id).leaveChannel;
+    let guild = member.guild;
+    if (guild.channels.find('name', channel)) {
+        let guildChannel = guild.channels.find('name', channel);
+        let final_msg = client.data.guilds.get(guild.id).leaveMsg.replace('{user}', member.user.tag).replace('{server}', guild.name);
+        guildChannel.send({
+            embed: {
+                author: {
+                    name: `Bye ${member.user.username}`,
+                    icon_url: member.user.avatarURL
+                },
+                description: final_msg,
+                color: 0x36393F,
+                footer: {
+                    text: `v${package.version}`
+                } 
+            }
+        })
+    } else {
+        guild.owner.send({
+            embed: {
+                author: {
+                    name: `Hey ${guild.owner.user.username}`,
+                    icon_url: guild.owner.user.avatarURL
+                },
+                description: 'Seems like your leave message channel isn\'t quite right. If you need help, join the support server which can be found in the info command.',
+                color: 0x36393F,
+                footer: {
+                    text: `v${package.version}`
+                } 
+            }
+        })
+    }
+}) // Member Leave
+
+client.on('message', (message) => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
     if (!client.data.guilds.get(message.guild.id)) {
         client.data.guilds.set(message.guild.id, config.defaultGuildDB);
     };
     prefix = client.data.guilds.get(message.guild.id).prefix;
+    if (message.content === client.user.toString()) client.util.embed(client, message, `The prefix for this server is \`${prefix}\`. Honestly, what ya' like? Fancy forgetting the prefix for the server. *tut*`)
     if (!message.content.startsWith(prefix)) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();

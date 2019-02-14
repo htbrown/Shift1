@@ -22,7 +22,7 @@ module.exports = async (client, message, args) => {
 
 module.exports.info = {
     description: 'View a user\'s or your strikes.',
-    usage: 'strikes [@user]'
+    usage: 'strikes (@mention)'
 }
 
 const isEmpty = (obj) => {

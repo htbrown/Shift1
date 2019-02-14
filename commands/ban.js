@@ -4,7 +4,7 @@ module.exports = async (client, message, args) => {
     const banUser = message.mentions.members.first();
     var reason = args.slice(1).join(" ");
 
-    if(!message.member.hasPermission("BAN_MEMBERS")) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Kick Members\' permission.', 'red');
+    if(!message.member.hasPermission("BAN_MEMBERS")) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Ban Members\' permission.', 'red');
     if (!banUser) return client.util.embed(client, message, 'You need to mention a user to ban them!', 'red');
     if (reason.length < 1) reason = 'No reason specified';
     if (!banUser.bannable) return client.util.embed(client, message, 'This person cannot be banned by this bot. Please make sure my role in settings is higher than the highest role that the person you want to ban has.', 'red')
@@ -22,5 +22,5 @@ module.exports = async (client, message, args) => {
 
 module.exports.info = {
     description: 'Bans a specified user from the server.',
-    usage: 'ban [@user] (reason)'
+    usage: 'ban [@mention] (reason)'
 }

@@ -48,7 +48,7 @@ module.exports = async (client, message, args) => {
 
 module.exports.info = {
     description: 'Strike someone in the Discord server.',
-    usage: 'strike [@user] (reason)'
+    usage: 'strike [@mention] (reason)'
 }
 
 const isEmpty = (obj) => { // rebooted

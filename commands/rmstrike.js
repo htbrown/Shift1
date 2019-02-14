@@ -26,5 +26,5 @@ module.exports = async (client, message, args) => {
 
 module.exports.info = {
     description: 'Removes a strike from a user.',
-    usage: 'rmstrike [@user] [id]'
+    usage: 'rmstrike [@mention] [id]'
 };
