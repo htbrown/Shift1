@@ -58,6 +58,10 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', (member) => {
+    if (!client.data.guilds.get(member.guild.id)) {
+        client.data.guilds.set(member.guild.id, config.defaultGuildDB);
+    };
+    if (client.data.guilds.get(member.guild.id).welcomeMessages === false) return;
     let channel = client.data.guilds.get(member.guild.id).welcomeChannel;
     let guild = member.guild;
     if (guild.channels.find('name', channel)) {
@@ -94,6 +98,10 @@ client.on('guildMemberAdd', (member) => {
 }) // New Member
 
 client.on('guildMemberRemove', (member) => {
+    if (!client.data.guilds.get(member.guild.id)) {
+        client.data.guilds.set(member.guild.id, config.defaultGuildDB);
+    };
+    if (client.data.guilds.get(member.guild.id).leaveMessages === false) return;
     let channel = client.data.guilds.get(member.guild.id).leaveChannel;
     let guild = member.guild;
     if (guild.channels.find('name', channel)) {
