@@ -1,30 +1,95 @@
 module.exports = async (client, message, args) => {
-	let user;
-	switch (user) {
-		case message.mentions.users.first():
-			user = message.mentions.users.first();
-			break;
-		case !message.mentions.users.first():
-			user = message.author;
-			break;
-		default:
-			user = message.author;
-			break;
+	if (message.mentions.users.first()) {
+		let user = message.mentions.users.first();
+		message.channel.send({
+			embed: {
+				author: {
+					name: `Hey ${user.username}`,
+					icon_url: user.avatarURL
+				},
+				thumbnail: user.avatarURL,
+				description: `Here's what I found on ${user.tag}.`,
+				color: 0x36393F,
+				fields: [
+					{
+						name: 'ID',
+						value: user.id,
+						inline: true
+					},
+					{
+						name: 'Tag',
+						value: user.tag,
+						inline: true
+					},
+					{
+						name: 'Highest Role',
+						value: message.guild.member(user).highestRole.name,
+						inline: true
+					},
+					{
+						name: 'Created on',
+						value: user.createdAt,
+						inline: true
+					},
+					{
+						name: 'Joined on',
+						value: message.guild.member(user).joinedAt,
+						inline: true
+					},
+					{
+						name: 'Status',
+						value: message.guild.member(user).presence.status,
+						inline: true
+					},
+				]
+			}
+		})
+	} else {
+		let user = message.author;
+		message.channel.send({
+			embed: {
+				author: {
+					name: `Hey ${message.author.username}`,
+					icon_url: message.author.avatarURL
+				},
+				thumbnail: user.avatarURL,
+				description: `Here's what I found on ${user.tag}.`,
+				color: 0x36393F,
+				fields: [
+					{
+						name: 'ID',
+						value: user.id,
+						inline: true
+					},
+					{
+						name: 'Tag',
+						value: user.tag,
+						inline: true
+					},
+					{
+						name: 'Highest Role',
+						value: message.member.highestRole.name,
+						inline: true
+					},
+					{
+						name: 'Created on',
+						value: user.createdAt,
+						inline: true
+					},
+					{
+						name: 'Joined on',
+						value: message.member.joinedAt,
+						inline: true
+					},
+					{
+						name: 'Status',
+						value: message.member.presence.status,
+						inline: true
+					},
+				]
+			}
+		})
 	}
-	
-	message.channel.send({
-		embed: {
-			title: `${user.username}'s Information`,
-			description: 'Here\'s what I found on ${user.tag}.',
-			fields: [
-				{
-					name: 'ID',
-					value: user.id,
-					inline: true
-				}
-			]
-		}
-	})
 };
 
 module.exports.info = {
