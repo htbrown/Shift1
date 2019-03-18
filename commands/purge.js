@@ -7,6 +7,18 @@ module.exports = async (client, message, args) => {
     const fetched = await message.channel.fetchMessages({limit: purgeAmount});
     message.channel.bulkDelete(fetched).catch(error => console.log(`Couldn't delete messages because of: ${error}`));
     client.util.embed(client, message, `Ok. I have deleted ${purgeAmount} messages.`)
+
+    // Log purge to logging channel
+    let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
+    let guildchannel = message.guild.channels.get(dbchannel);
+
+    guildchannel.send({
+        embed: {
+            title: 'Purge',
+            description: `**${message.author.tag} (${message.author.id})** has purged **${purgeAmount}** messages in **${message.channel.name}**.`,
+            color: 0x36393F
+        }
+    });
 }
 
 module.exports.info = {

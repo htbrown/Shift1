@@ -44,6 +44,18 @@ module.exports = async (client, message, args) => {
         description: `Oi! You've just been stricken in ${message.guild.name} by ${message.author.tag} for ${reason}. What have you done now?`,
         footer: { text: `v${package.version}` }
     }});
+
+    // Log strike to logging channel
+    let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
+    let guildchannel = message.guild.channels.get(dbchannel);
+
+    guildchannel.send({
+        embed: {
+            title: 'Strike',
+            description: `**${message.author.tag} (${message.author.id})** has stricken **${strikeUser} (${strikeUser.id})**.`,
+            color: 0x36393F
+        }
+    });
 }
 
 module.exports.info = {
