@@ -8,7 +8,7 @@ module.exports = async (client, message, args) => {
                 name: `Hey ${message.author.username}`,
                 icon_url: message.author.avatarURL
             },
-            description: 'Welcome to my setup! Here you can change how I work in your server. To get started, react with one of the following reactions.\n\n❗ - Prefix\n👋 - Welcome Channel & Message\n🔑 - Toggle Welcome & Leave Messages\n🚪 - Leave Channel and Messages\n🔒 - Agree Verification Role\n👤 - Agree Verification\n❌ - Close',
+            description: 'Welcome to my setup! Here you can change how I work in your server. To get started, react with one of the following reactions.\n\n❗ - Prefix\n👋 - Welcome Channel & Message\n🔑 - Toggle Welcome & Leave Messages\n🚪 - Leave Channel and Messages\n🔒 - Agree Verification Role\n👤 - Agree Verification\n📝 - Logging Channel\n❌ - Close',
             color: 0x36393F,
             footer: {
                 text: `v${package.version}`
@@ -22,10 +22,54 @@ module.exports = async (client, message, args) => {
         ctx.react('🔒') // Agree Role
         ctx.react('👤') // Agree Toggle
         ctx.react('❌') // Close
+        ctx.react('📝') // Logging Channel
 
         const filter = (reaction, user) => user.id === message.author.id;
         const collector = ctx.createReactionCollector(filter, {});
         collector.on('collect', async r => {
+            if (r.emoji.name === '📝') {
+                ctx.clearReactions();                
+                ctx.edit({
+                    embed: {
+                        author: {
+                            name: `Hey ${message.author.username}`,
+                            icon_url: message.author.avatarURL
+                        },
+                        description: 'Ok. Please send the **ID** of the channel you want your logs to be sent. (e.x: 557223157465491955)',
+                        color: 0x36393F,
+                        footer: {
+                            text: `v${package.version}`
+                        } 
+                    }
+                })
+                let collector2 = ctx.channel.createMessageCollector(newmsg => newmsg.author.id === message.author.id);
+                collector2.on('collect', async msg => {
+                    collector2.stop();
+                    let guild = client.data.guilds.get(message.guild.id);
+                    guild.loggingChannel = msg.content;
+                    client.data.guilds.set(message.guild.id, guild);
+
+                    ctx.edit({
+                        embed: {
+                            author: {
+                                name: `Hey ${message.author.username}`,
+                                icon_url: message.author.avatarURL
+                            },
+                            description: 'Ok. I have saved your config.',
+                            color: 0x36393F,
+                            footer: {
+                                text: `v${package.version}`
+                            } 
+                        }
+                    })
+
+                    setTimeout(() => {
+                        ctx.delete();
+                        msg.delete();
+                        setup();
+                    }, 2000);
+                })
+            }
             if (r.emoji.name === '👤') {
                 if (client.data.guilds.get(message.guild.id).agree === true) {
                     let guild = client.data.guilds.get(message.guild.id);

@@ -17,6 +17,18 @@ module.exports = async (client, message, args) => {
         }}).then(() => {
         message.guild.members.find('id', kickUser.id).kick();
         client.util.embed(client, message, `Ok. I've kicked ${kickUser.user.username} for ${reason}.`);
+
+        // Log kick to logging channel
+        let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
+        let guildchannel = message.guild.channels.get(dbchannel);
+
+        guildchannel.send({
+            embed: {
+                title: 'Kick',
+                description: `**${message.author.tag} (${message.author.id})** has kicked **${kickUser.user.username} (${kickUser.id})** for **${reason}**.`,
+                color: 0x36393F
+            }
+        });
     })
 }
 
