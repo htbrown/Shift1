@@ -8,7 +8,7 @@ module.exports = async (client, message, args) => {
                 name: `Hey ${message.author.username}`,
                 icon_url: message.author.avatarURL
             },
-            description: 'Welcome to my setup! Here you can change how I work in your server. To get started, react with one of the following reactions.\n\n❗ - Prefix\n👋 - Welcome Channel & Message\n🔑 - Toggle Welcome & Leave Messages\n🚪 - Leave Channel and Messages\n🔒 - Agree Verification Role\n👤 - Agree Verification\n📝 - Logging Channel\n❌ - Close',
+            description: 'Welcome to my setup! Here you can change how I work in your server. To get started, react with one of the following reactions.\n\n❗ - Prefix\n👋 - Welcome Channel & Message\n🔑 - Toggle Welcome & Leave Messages\n🚪 - Leave Channel and Messages\n🔒 - Agree Verification Role\n👤 - Agree Verification\n📝 - Logging Channel\n📑 - Toggle Logging\n❌ - Close',
             color: 0x36393F,
             footer: {
                 text: `v${package.version}`
@@ -23,10 +23,74 @@ module.exports = async (client, message, args) => {
         ctx.react('👤') // Agree Toggle
         ctx.react('❌') // Close
         ctx.react('📝') // Logging Channel
+        ctx.react('📑') // Log Toggle
 
         const filter = (reaction, user) => user.id === message.author.id;
         const collector = ctx.createReactionCollector(filter, {});
         collector.on('collect', async r => {
+            if (r.emoji.name === '📑') {
+                if (client.data.guilds.get(message.guild.id).logging === true) {
+                    let guild = client.data.guilds.get(message.guild.id);
+                    guild.logging = false;
+                    client.data.guilds.set(message.guild.id, guild);
+
+                    ctx.edit({
+                        embed: {
+                            author: {
+                                name: `Hey ${message.author.username}`,
+                                icon_url: message.author.avatarURL
+                            },
+                            description: 'Ok. I have disabled logs.',
+                            color: 0x36393F,
+                            footer: {
+                                text: `v${package.version}`
+                            } 
+                        }
+                    })
+
+                    setTimeout(() => {
+                        ctx.delete();
+                        setup();
+                    }, 2000);
+                } else if (client.data.guilds.get(message.guild.id).logging === false) {
+                    let guild = client.data.guilds.get(message.guild.id);
+                    guild.logging = true;
+                    client.data.guilds.set(message.guild.id, guild);
+
+                    ctx.edit({
+                        embed: {
+                            author: {
+                                name: `Hey ${message.author.username}`,
+                                icon_url: message.author.avatarURL
+                            },
+                            description: 'Ok. I have enabled logs.',
+                            color: 0x36393F,
+                            footer: {
+                                text: `v${package.version}`
+                            } 
+                        }
+                    })
+
+                    setTimeout(() => {
+                        ctx.delete();
+                        setup();
+                    }, 2000);
+                } else {
+                    ctx.edit({
+                        embed: {
+                            author: {
+                                name: `Hey ${message.author.username}`,
+                                icon_url: message.author.avatarURL
+                            },
+                            description: 'This isn\'t good, your server\'s database is a bit broken. Please join the support server and ask for your database to be reset. The support server can be found in the info command.',
+                            color: 0x36393F,
+                            footer: {
+                                text: `v${package.version}`
+                            } 
+                        }
+                    })
+                }
+            }
             if (r.emoji.name === '📝') {
                 ctx.clearReactions();                
                 ctx.edit({

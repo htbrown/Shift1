@@ -46,16 +46,18 @@ module.exports = async (client, message, args) => {
     }});
 
     // Log strike to logging channel
-    let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
-    let guildchannel = message.guild.channels.get(dbchannel);
+    if (client.data.guilds.get(message.guild.id).logging === true) {
+        let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
+        let guildchannel = message.guild.channels.get(dbchannel);
 
-    guildchannel.send({
-        embed: {
-            title: 'Strike',
-            description: `**${message.author.tag} (${message.author.id})** has stricken **${strikeUser} (${strikeUser.id})** for **${reason}**.`,
-            color: 0x36393F
-        }
-    });
+        guildchannel.send({
+            embed: {
+                title: 'Strike',
+                description: `**${message.author.tag} (${message.author.id})** has stricken **${strikeUser} (${strikeUser.id})** for **${reason}**.`,
+                color: 0x36393F
+            }
+        });
+    }
 }
 
 module.exports.info = {

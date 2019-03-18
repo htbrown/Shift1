@@ -17,17 +17,20 @@ module.exports = async (client, message, args) => {
         }}).then(() => {
         message.guild.ban(banUser.id);
         client.util.embed(client, message, `Ok. I've banned ${banUser.user.username} for ${reason}.`);
+        
         // Log ban to logging channel
-        let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
-        let guildchannel = message.guild.channels.get(dbchannel);
+        if (client.data.guilds.get(message.guild.id).logging === true) {
+            let dbchannel = client.data.guilds.get(message.guild.id).loggingChannel;
+            let guildchannel = message.guild.channels.get(dbchannel);
 
-        guildchannel.send({
-            embed: {
-                title: 'Ban',
-                description: `**${message.author.tag} (${message.author.id})** has banned **${banUser.user.username} (${banUser.id})** for **${reason}**.`,
-                color: 0x36393F
-            }
-        });
+            guildchannel.send({
+                embed: {
+                    title: 'Ban',
+                    description: `**${message.author.tag} (${message.author.id})** has banned **${banUser.user.username} (${banUser.id})** for **${reason}**.`,
+                    color: 0x36393F
+                }
+            });
+        }
     })
 }
 
