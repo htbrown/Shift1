@@ -16,7 +16,7 @@ module.exports = async (client, message, args) => {
         guildchannel.send({
             embed: {
                 title: 'Purge',
-                description: `**${message.author.tag} (${message.author.id})** has purged **${purgeAmount}** messages in **${message.channel.name}**.`,
+                description: `${message.author.tag} (${message.author.id}) has purged ${purgeAmount} messages in ${message.channel.name}.`,
                 color: 0x36393F
             }
         });
