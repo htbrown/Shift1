@@ -26,7 +26,7 @@ module.exports = async (client, message, args) => {
             guildchannel.send({
                 embed: {
                     title: 'Kick',
-                    description: `**${message.author.tag} (${message.author.id})** has kicked **${kickUser.user.username} (${kickUser.id})** for **${reason}**.`,
+                    description: `${message.author.tag} (${message.author.id}) has kicked ${kickUser.user.username} (${kickUser.id}) for ${reason}.`,
                     color: 0x36393F
                 }
             });
