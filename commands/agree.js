@@ -14,7 +14,7 @@ module.exports = async (client, message, args) => {
             guildchannel.send({
                 embed: {
                     title: 'Agree',
-                    description: `**${message.author.tag} (${message.author.id})** has agreed to the rules. I've given him the appropriate role.`,
+                    description: `${message.author.tag} (${message.author.id}) has agreed to the rules. I've given them the appropriate role.`,
                     color: 0x36393F
                 }
             });
