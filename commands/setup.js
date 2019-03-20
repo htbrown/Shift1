@@ -99,7 +99,7 @@ module.exports = async (client, message, args) => {
                             name: `Hey ${message.author.username}`,
                             icon_url: message.author.avatarURL
                         },
-                        description: 'Ok. Please send the **ID** of the channel you want your logs to be sent. (e.x: 557223157465491955)',
+                        description: 'Ok. Please send the ID of the channel you want your logs to be sent. (for example: 545633820422963203)',
                         color: 0x36393F,
                         footer: {
                             text: `v${package.version}`
