@@ -17,3 +17,7 @@ module.exports = (client, message, args) => {
         })
     })
 };
+module.exports.info = {
+    description: 'DMs the owner of every server Shift is in. Maintainer only.',
+    usage: 'ownermsg [message]'
+};
