@@ -1,6 +1,6 @@
 {
   "name": "shift",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "A multi-function Discord bot designed for any server.",
   "main": "app.js",
   "scripts": {
