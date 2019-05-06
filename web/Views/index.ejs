@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+</head>
+<body>
+    <section class="header has-text-centered">
+        <div style="padding-top:45vh;"></div>
+        <h1 class="title is-1" style="color:white;">Shift Dashboard</h1>
+        <% if (req.isAuthenticated()) { %>
+            <a class="button is-primary">Dashboard</a>
+        <% } else { %>
+            <a class="button is-blue" href="/login">Login with Discord</a>
+        <% } %>
+    </section>
+</body>
+</html>

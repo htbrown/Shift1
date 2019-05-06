@@ -1,0 +1,10 @@
+@import url('https://thehydrogen.ml/css/bulma.css');
+
+.header {
+    background: linear-gradient(#4c3fc2, #1578c9);
+    height: 100vh;
+}
+
+::selection {
+    background-color: lightskyblue;
+}

@@ -12,7 +12,7 @@ const client = new Discord.Client();
 client.data = enmap.multi(['guilds', 'users'], level);
 
 const webserver = require('./web/webserver.js');
-webserver.boot();
+webserver.boot(client);
 
 log.info('Getting ready...');
 function sleep(milliseconds) {

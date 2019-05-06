@@ -15,6 +15,7 @@
     "enmap": "github:eslachance/enmap#v3",
     "enmap-level": "^2.1.0",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "hexalogger": "^1.1.3",
     "passport": "^0.4.0",
     "passport-discord": "^0.1.3",
