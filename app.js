@@ -159,6 +159,35 @@ client.on('message', (message) => {
     }
 });
 
+client.on('messageUpdate', (oldmsg, newmsg) => {
+    if (oldmsg !== newmsg) {
+        if (client.data.guilds.get(newmsg.guild.id).logging === true) {
+            let dbchannel = client.data.guilds.get(newmsg.guild.id).loggingChannel;
+            let guildchannel = newmsg.guild.channels.get(dbchannel);
+
+            if (newmsg.embeds.length != 0) return;
+
+            guildchannel.send({ embed: {
+                title: 'Message Edit',
+                description: `${newmsg.author.tag} (${newmsg.author.id}) has edited a message in ${newmsg.channel.name}`,
+                fields: [
+                    {
+                        name: 'Old message',
+                        value: `\`${oldmsg.content}\``,
+                        inline: false
+                    },
+                    {
+                        name: 'New message',
+                        value: `\`${newmsg.content}\``,
+                        inline: false
+                    }
+                ],
+                color: 0x36393F
+            } });
+        }
+    }
+})
+
 client.on('error', console.error);
 
 client.login(config.token);
