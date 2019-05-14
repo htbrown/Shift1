@@ -4,8 +4,8 @@ module.exports = async (client, message, args) => {
 		message.channel.send({
 			embed: {
 				author: {
-					name: `Hey ${user.username}`,
-					icon_url: user.avatarURL
+					name: `Hey ${message.author.username}`,
+					icon_url: message.author.avatarURL
 				},
 				thumbnail: user.avatarURL,
 				description: `Here's what I found on ${user.tag}.`,
