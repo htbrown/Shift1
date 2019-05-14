@@ -18,6 +18,13 @@ module.exports = async (client, message, args) => {
             break;
     }
 
+    let iconURL;
+    if (message.guild.iconURL) {
+        iconURL = message.guild.iconURL.replace('jpg', 'png');
+    } else {
+        iconURL = client.user.avatarURL;
+    }
+
     message.channel.send({
         embed: {
             author: {
@@ -25,7 +32,7 @@ module.exports = async (client, message, args) => {
                 icon_url: message.author.avatarURL
             },
             thumbnail: {
-                url: message.guild.iconURL.replace('jpg', 'png')
+                url: iconURL
             },
             description: `Here's what I found on ${message.guild.name}.`,
             color: 0x36393F,
