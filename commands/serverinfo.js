@@ -57,18 +57,16 @@ module.exports = async (client, message, args) => {
                     value: message.guild.createdAt,
                     inline: true
                 },
-                /*
                 {
-                    name: 'Joined on',
-                    value: jeff,
+                    name: 'Owner',
+                    value: message.guild.owner.user.tag,
                     inline: true
                 },
                 {
-                    name: 'Status',
-                    value: message.guild.member(user).presence.status,
+                    name: 'Channels',
+                    value: message.guild.channels.filter(c => c.type !== 'category').size,
                     inline: true
                 },
-                */
             ]
         }
     })
