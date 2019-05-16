@@ -8,6 +8,10 @@ module.exports = async (client, message, args) => {
 
     message.channel.send({
         embed: {
+            author: {
+                name: `Hey ${message.author.username}`,
+                icon_url: message.author.avatarURL
+            },
             thumbnail: {
                 url: client.user.avatarURL
             },
