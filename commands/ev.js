@@ -12,6 +12,16 @@ module.exports = async (client, message, args) => {
             evaled = require("util").inspect(evaled);
         }
 
+        if (evaled.length > 1000) {
+            return require('snekfetch').post('hasteb.in/documents', { data: evaled }).then(res => {
+                if (res.body.key) {
+                    client.util.embed(client, message, `Looks like your eval result was way too long! Don't worry though, I've got you covered: [Click here](https://hasteb.in/${result.body.key}.js)`);
+                } else {
+                    message.channel.send(':x: Something went wrong while posting the eval result to the Hastebin API. Maybe check its status?')
+                }
+            })
+        }
+
         client.util.embed(client, message, `\`\`\`${evaled}\`\`\``);
     } catch (err) {
         client.util.embed(client, message, `Seems like something's gone wrong with your code. Here's what I returned. \n\`\`\`${err}\`\`\``, 'red');
