@@ -6,7 +6,7 @@ module.exports = async (client, message, args) => {
     try {
         var evaled = eval(args.join(" "));
 
-        if (evaled === client.token || evaled === config.token || evaled.includes(client.token)) return client.util.embed(client, message, 'Now you really shouldn\'t be here! Go on, off you go.', 'red');
+        if (evaled === client.token || evaled === config.token) return client.util.embed(client, message, 'Now you really shouldn\'t be here! Go on, off you go.', 'red');
 
         if (typeof evaled !== "string"){
             evaled = require("util").inspect(evaled);
