@@ -6,14 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/styles.css">
     <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
 </head>
 <body>
     <section class="header has-text-centered">
         <div style="padding-top:45vh;"></div>
-        <h1 class="title is-1" style="color:white;">Shift Dashboard</h1>
         <% if (req.isAuthenticated()) { %>
-            <a class="button is-primary">Dashboard</a>
+            <h1 class="title is-1" style="color:white;">Hi, <%= req.user.username %></h1>
+            <a class="button is-primary" href="/dashboard">To the dashboard &rightarrow;</a>
+            <a class="button is-danger" href="/logout"><i class="fa fa-power-off"></i> Logout</a>
         <% } else { %>
+            <h1 class="title is-1" style="color:white;">Shift Dashboard</h1>
             <a class="button is-blue" href="/login">Login with Discord</a>
         <% } %>
     </section>

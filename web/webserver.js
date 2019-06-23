@@ -1,50 +1,21 @@
-/*
-    Shift WebServer
-    ---------------
-    Backend: Hydrogen
-    Frontend: Hayden/Hexabyte
-    ---------------
-    (c) Hydrogen.
-    ---------------
-    Routing must be handled through the appropriate file in the routes folder.
-    If no file matches your use case, please create a new file with the same structure.
-    Thank you.
-*/
-
 const express = require('express');
-const app = express();
-const log = require('hexalogger');
-const ejs = require('ejs');
+const session = require('express-session');
 const config = require('../config.json');
 const passport = require('passport');
-const Strategy = require('passport-discord').Strategy;
-const session = require('express-session');
+const { Strategy } = require('passport-discord');
+const ejs = require('ejs');
+const app = express();
+const logger = require('hexalogger');
 
-module.exports.boot = (client) => {
-    app.use(express.urlencoded());
-    app.use(express.json());
+module.exports = (client, guilds) => {
     app.set('view engine', 'ejs');
     app.engine('ejs', ejs.renderFile);
-    app.use(express.static(`${__dirname}/Public`));
     app.set('views', `${__dirname}/Views`);
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(session({
-        secret: 'Shift | By Hayden and Hydrogen | very gey amirite | this is a very secure secret very cool | clap clap',
-        resave: false,
-        saveUninitialized: false
-    }));
+    app.use(express.static(`${__dirname}/Public`));
+    app.use(express.urlencoded());
+    app.use(express.json());
 
     let scopes = ['identify', 'guilds'];
-
-    const isAuthenticated = (req, res, next) => {
-        if (req.isAuthenticated()) return next();
-        res.redirect('/login');
-    };
-
-    app.get('/', (req, res) => {
-        res.render('index', { req });
-    });
 
     passport.serializeUser((user, done) => {
         done(null, user);
@@ -55,8 +26,8 @@ module.exports.boot = (client) => {
     });
 
     passport.use(new Strategy({
-        clientID: config.id,
-        clientSecret: config.secret,
+        clientID: require('../config.json').id,
+        clientSecret: require('../config.json').secret,
         callbackURL: `http://localhost/login/callback`,
         scope: scopes
     }, (accessToken, refreshToken, profile, done) => {
@@ -65,23 +36,95 @@ module.exports.boot = (client) => {
         });
     }));
 
+    app.use(session({
+        secret: 'iris is much gay this is worlds best secret for encryption shift best bot all devs gay i mean hi person maintaining my code',
+        resave: false,
+        saveUninitialized: false
+    }));
+
+    const checkAuth = (req, res, next) => {
+        if (req.isAuthenticated()) return next();
+        res.redirect('/login');
+    };
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    app.listen(config.web.port, '0.0.0.0', () => {
+        console.log('[web] Web Server has launched.')
+    })
+
+    /* Main pages */
+    app.get('/', (req, res) => {
+        res.render('index', {
+            req,
+            res,
+            client,
+            guilds,
+            user: req.user
+        });
+    })
+    
+    app.get('/error', (req, res) => {
+        res.render('error', {
+            req,
+            res,
+            client,
+            guilds,
+            error: 'user-initiated'
+        });
+    })
+    /* - Main pages */
+
+    /* Dashboard pages */
     app.get('/login', passport.authenticate('discord', { scopes }));
 
     app.get('/login/callback', passport.authenticate('discord', { failureRedirect: '/error' }), (req, res) => {
-        res.redirect('/');
+        res.redirect('/dashboard');
     });
 
-    app.get('/logout', (req, res) => {
-        req.logout();
-    });
-
-    app.get('/dashboard', isAuthenticated, (req, res) => {
-        res.json({
-            jeff: 'jeff'
-        })
+    app.get('/dashboard', checkAuth, (req, res) => {
+        res.render('server-select', { client, user: req.user, req });
     })
 
-    app.listen(config.web.port, async () => {
-        log.success(`Webserver has launched on port/interface ${config.web.port}.`);
-    });
-}
+    app.get('/dashboard/:serverID', checkAuth, (req, res) => {
+        res.redirect(`/dashboard/${req.params.serverID}/info`)
+    })
+
+    app.get('/dashboard/:serverID/:page', checkAuth, (req, res) => {
+        if (client.guilds.get(req.params.serverID).members.get(req.user.id).hasPermission('MANAGE_GUILD')) {
+            try {
+                const URLS = {
+                    prefix: `http://localhost/dashboard/${req.params.serverID}/prefix`
+                };
+
+                logger.info(`DASHBOARD ROUTE REQUESTED: ${req.params.page}`);
+                res.render(`server-${req.params.page}`, { guilds, client, user: req.user, req, guild: client.guilds.get(req.params.serverID), version: require('../package.json').version, URLS });
+            } catch(e) {
+                res.render('error', { error: 'DASHBOARD_SERVER_PAGE_LOAD_FAIL' });
+                logger.warn('DASHBOARD_SERVER_PAGE_LOAD_FAIL (0x2020)');
+            }
+        }
+
+    })
+
+    app.post('/dashboard/:serverID/prefix', checkAuth, (req, res) => {
+        prefix = req.body.prefix;
+        let guild = guilds.get(req.params.serverID);
+        guild.prefix = prefix;
+        guilds.set(req.params.serverID, guild);
+    })
+
+    app.post('/internal-api/:serverID/prefix', (req, res) => {
+        prefix = req.body.prefix;
+        let guild = guilds.get(req.params.serverID);
+        guild.prefix = prefix;
+        guilds.set(req.params.serverID, guild);
+    })
+
+    app.get('/logout', checkAuth, (req, res) => {
+        req.logout();
+        res.redirect('/');
+    })
+    /* - Dashboard pages */
+};

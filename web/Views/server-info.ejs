@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+</head>
+<body>
+    <section class="has-text-centered" style="background:linear-gradient(#4c3fc2, #36ee7d); padding-top:90px; padding-bottom:90px;">
+        <h1 class="title is-1" style="color:white;">Hi <%= req.user.username %>,</h1>
+        <p class="subtitle" style="color:white;">This is the control panel of your server, <%= guild.name %></p>
+        <a href="/logout" class="button is-danger"><i class="fa fa-power-off"></i> Logout</a> <a href="/" class="button is-info"><i class="fa fa-home"></i> Go home</a>
+    </section>
+    <br>
+    <div class="tabs-panel">
+        <aside class="menu">
+            <p class="menu-label">
+                Information
+            </p>
+            <ul class="menu-list">
+                <li><a class="is-active">Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
+            </ul>
+            <p class="menu-label">
+                Administration
+            </p>
+            <ul class="menu-list">
+                <li><a>Strikes</a></li>
+                <li><a>Kick</a></li>
+                <li><a>Ban</a></li>
+                <li><a>Mute</a></li>
+            </ul>
+            <p class="menu-label">
+                Settings
+            </p>
+            <ul class="menu-list">
+                <li><a>Welcome Mesages</a></li>
+                <li><a>Leave Messages</a></li>
+                <li><a>Logging</a></li>
+            </ul>
+            <br>
+            <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
+        </aside>
+    </div>
+    <br>
+    <div class="columns container has-text-centered">
+        <div class="column">
+            <div class="box">
+                <h2 class="title is-2">Members</h2>
+                <p class="subtitles"><%= guild.memberCount %></p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <h2 class="title is-2">Channels</h2>
+                <p class="subtitles"><%= guild.channels.size %></p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <h2 class="title is-2">Owner</h2>
+                <p class="subtitles"><%= guild.owner.user.tag %></p>
+            </div>
+        </div>
+    </div>
+    <div class="columns container has-text-centered">
+        <div class="column">
+            <div class="box">
+                <h2 class="title is-2">Server Icon</h2>
+                <img src="<%= guild.iconURL %>" class="server-icon-dashboard">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

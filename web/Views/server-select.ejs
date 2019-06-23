@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Select a server to configure.</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+</head>
+<body>
+    <section class="hero header is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <center>
+                    <h1 class="title is-1" style="color:white;">Select a server to configure.</h1>
+                    <p style="color:white;">The servers listed below are ones that you either have the Manage Server permission on or are the owner.</p>
+                    <hr>
+                    <% req.user.guilds.filter(g => client.guilds.get(g.id) && client.guilds.get(g.id).members.get(req.user.id).hasPermission('MANAGE_GUILD')).forEach(g => { %>
+                        <div class="container has-text=centered">
+                            <div class="columns">
+                                <div class="column box">
+                                    <a href="/dashboard/<%= g.id %>/">
+                                        <div class="">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img class="server-icon" src="<%= client.guilds.get(g.id).iconURL %>" alt="<%= g.name %>'s Icon'">
+                                                </div>
+                                                <div class="media-content">
+                                                    <h1 class="title is-3"><%= g.name %></h1>
+                                                    <p class="subtitle"><strong><%= client.guilds.get(g.id).members.size %></strong> members.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </center>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
