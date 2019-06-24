@@ -17,14 +17,14 @@
                 Information
             </p>
             <ul class="menu-list">
-                <li><a href="/dashboard/<%= guild.id %>/info">Info</a></li>
-                <li><a class="is-active">Bot</a></li>
+                <li><a>Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
             </ul>
             <p class="menu-label">
                 Administration
             </p>
             <ul class="menu-list">
-                <li><a href="/dashboard/<%= guild.id %>/strikes">Strikes</a></li>
+                <li><a class="is-active">Strikes</a></li>
                 <li><a>Kick</a></li>
                 <li><a>Ban</a></li>
                 <li><a>Mute</a></li>
@@ -43,12 +43,16 @@
     </div>
     <br>
     <div class="has-text-centered">
-        <h1 class="title is-2 has-text-centered">Hi, I'm Shift.</h1>
-        <p class="subtitle">v<%= version %></p>
         <br>
-        <p>
-            Built by Hayden.#2616 and Hydrogen#0002
-        </p>
+        <% Object.keys(guilds.get(req.params.serverID).strikes).forEach(userID => { %>
+            <% Object.keys(guilds.get(req.params.serverID).strikes[userID]).forEach(strike => { %>
+                <div class="box container" style="width:600px;">
+                    <h2 class="title is-2"><img src="<%= client.users.get(userID).avatarURL %>" class="strike-user" style="width:32px; border-radius:50%;"> <%= client.users.get(userID).username %></h2>
+                    <p class="subtitle"><strong>Reason:</strong> <%= guilds.get(req.params.serverID).strikes[userID][strike].reason %>
+                    <strong>Striked by:</strong> <%= client.users.get(guilds.get(req.params.serverID).strikes[userID][strike].strikedBy.replace('<@', '').replace('>', '')).tag %></p>
+                </div>
+            <% }) %>
+        <% }) %>
     </div>
 </body>
 </html>
