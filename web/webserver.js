@@ -28,7 +28,7 @@ module.exports = (client, guilds) => {
     passport.use(new Strategy({
         clientID: require('../config.json').id,
         clientSecret: require('../config.json').secret,
-        callbackURL: `http://localhost/login/callback`,
+        callbackURL: `http://dash.shiftbot.xyz:2020/login/callback`,
         scope: scopes
     }, (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
