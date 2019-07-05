@@ -28,7 +28,7 @@ module.exports = (client, guilds) => {
     passport.use(new Strategy({
         clientID: require('../config.json').id,
         clientSecret: require('../config.json').secret,
-        callbackURL: `http://dash.shiftbot.xyz:2020/login/callback`,
+        callbackURL: `http://localhost/login/callback`,
         scope: scopes
     }, (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -108,18 +108,19 @@ module.exports = (client, guilds) => {
 
     })
 
-    app.post('/dashboard/:serverID/prefix', checkAuth, (req, res) => {
+    app.post('/api/prefix', checkAuth, (req, res) => {
         prefix = req.body.prefix;
         let guild = guilds.get(req.params.serverID);
         guild.prefix = prefix;
         guilds.set(req.params.serverID, guild);
     })
 
-    app.post('/internal-api/:serverID/prefix', (req, res) => {
-        prefix = req.body.prefix;
-        let guild = guilds.get(req.params.serverID);
-        guild.prefix = prefix;
-        guilds.set(req.params.serverID, guild);
+    app.post('/api/rmstrike', checkAuth, (req, res) => {
+        let strikeID = req.body.strikeID;
+        let userID = req.body.userID;
+        let guildID = req.body.guildID;
+
+        delete guilds.get(guildID).strikes[userID][strikeID];
     })
 
     app.get('/logout', checkAuth, (req, res) => {

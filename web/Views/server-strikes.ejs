@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="/css/styles.css">
     <title>Shift Dashboard</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        function rmStrike(guildID, userID, strikeID) {
+            let rmbtn = document.getElementById('rmbtn');
+
+            $.post('/api/rmstrike', {
+                guildID, userID, strikeID
+            });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        }
+    </script>
 </head>
 <body>
     <% include Partials/dashboard-banner %>
@@ -42,17 +60,33 @@
         </aside>
     </div>
     <br>
-    <div class="has-text-centered">
+    <div class="has-text-centered" style="padding-left:40px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><abbr title="Position">Author</abbr></th>
+                    <th><abbr title="Played">Reason</abbr></th>
+                    <th><abbr title="Won">ID</abbr></th>
+                    <th><abbr title="Won">Stricken</abbr></th>
+                    <th><abbr title="Won">Delete</abbr></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% Object.keys(guilds.get(req.params.serverID).strikes).forEach(userID => { %>
+                    <% Object.keys(guilds.get(req.params.serverID).strikes[userID]).forEach(strike => { %>
+                        <tr>
+							<th><%= client.users.get(guilds.get(req.params.serverID).strikes[userID][strike].strikedBy.replace('<@', '').replace('>', '')).tag %></th>
+							<td><%= guilds.get(req.params.serverID).strikes[userID][strike].reason %></strong>
+							</td>
+                            <td><%= strike %></td>
+                            <td><%= client.users.get(userID).username %></td>
+                            <td><a id="rmbtn" class="button is-danger" onclick="rmStrike('<%= req.params.serverID %>', '<%= userID %>', '<%= strike %>');">Remove strike</a></td>
+						</tr>
+                    <% }) %>
+                <% }) %>
+            </tbody>
+        </table>
         <br>
-        <% Object.keys(guilds.get(req.params.serverID).strikes).forEach(userID => { %>
-            <% Object.keys(guilds.get(req.params.serverID).strikes[userID]).forEach(strike => { %>
-                <div class="box container" style="width:600px;">
-                    <h2 class="title is-2"><img src="<%= client.users.get(userID).avatarURL %>" class="strike-user" style="width:32px; border-radius:50%;"> <%= client.users.get(userID).username %></h2>
-                    <p class="subtitle"><strong>Reason:</strong> <%= guilds.get(req.params.serverID).strikes[userID][strike].reason %>
-                    <strong>Striked by:</strong> <%= client.users.get(guilds.get(req.params.serverID).strikes[userID][strike].strikedBy.replace('<@', '').replace('>', '')).tag %></p>
-                </div>
-            <% }) %>
-        <% }) %>
     </div>
 </body>
 </html>
