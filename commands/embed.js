@@ -5,7 +5,7 @@ module.exports = async (client, message, args) => {
     if (!args) return client.util.embed(client, message, 'You need to include a message to put in the embed!', 'red');
     message.delete();
     message.channel.send({embed: {
-            author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
+            author: {name: message.author.username, icon_url: message.author.avatarURL},
             color: 0x36393F,
             description: args.join(" "),
             footer: {text: `v${package.version}`}
