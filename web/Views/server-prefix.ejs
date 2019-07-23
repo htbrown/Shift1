@@ -14,12 +14,13 @@
     ></script>
 
     <script>
-        function submit() {
+        function submit(serverID) {
             let prefix = document.getElementById('prefixForm').value;
 
             if (prefix) {
                 $.post('/api/prefix', {
-                    prefix: prefix
+                    prefix,
+                    serverID
                 })
 
                 setTimeout(() => {
@@ -66,19 +67,21 @@
         </aside>
     </div>
     <br>
-    <div class="has-text-centered">
+    <div class="has-text-centered ">
+        <center>
         <h1 class="title is-2 has-text-centered">Change your prefix.</h1>
         <br>
-        <div class="field has-addons">
-            <div style="padding-left:47vh;" class="control">
-              <input id="prefixForm" class="input is-rounded" type="text" placeholder="Your new prefix">
+        <div class="field has-addons center">
+            <div class="control"> <!--  style="padding-left:47vh;" -->
+              <input id="prefixForm" class="input is-rounded" type="text" placeholder="Current prefix: <%= guilds.get(req.params.serverID).prefix %>">
             </div>
             <div class="control">
-              <a onclick="submit();" class="button is-info is-rounded">
-                Search
+              <a onclick="submit('<%= req.params.serverID %>');" class="button is-info is-rounded">
+                Change
               </a>
             </div>
         </div>
+        </center>
     </div>
 </body>
 </html>

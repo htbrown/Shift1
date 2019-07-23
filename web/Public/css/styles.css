@@ -18,3 +18,9 @@
 .server-icon-dashboard {
     border-radius: 50%;
 }
+
+.center {
+    margin: auto;
+    width: 20%;
+    padding: 30px;
+  }

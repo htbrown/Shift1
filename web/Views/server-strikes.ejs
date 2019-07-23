@@ -22,7 +22,7 @@
 
             setTimeout(() => {
                 window.location.reload();
-            }, 3000);
+            }, 1000);
         }
     </script>
 </head>
@@ -54,14 +54,14 @@
                 <li><a>Welcome Mesages</a></li>
                 <li><a>Leave Messages</a></li>
                 <li><a>Logging</a></li>
-                <li><a href="/dashboard/<%= guild.id %>/bot">Prefix</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/prefix">Prefix</a></li>
             </ul>
             <br>
             <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
         </aside>
     </div>
     <br>
-    <div class="has-text-centered" style="padding-left:40px;">
+    <div class="has-text-centered center" style="padding-left:40px;">
         <% if (Object.keys(guilds.get(req.params.serverID).strikes).length != 0) { %>
         <table class="table">
             <thead>

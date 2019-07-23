@@ -109,11 +109,13 @@ module.exports = (client, guilds) => {
     })
 
     app.post('/api/prefix', checkAuth, (req, res) => {
+        logger.info(`Prefix change requested: ${guilds.get(req.body.serverID).prefix} to ${req.body.prefix} (${client.guilds.get(req.body.serverID).name} - ${req.body.serverID})`)
+
         prefix = req.body.prefix;
         console.log(prefix);
-        let guild = guilds.get(req.params.serverID);
+        let guild = guilds.get(req.body.serverID);
         guild.prefix = prefix;
-        guilds.set(req.params.serverID, guild);
+        guilds.set(req.body.serverID, guild);
     })
 
     app.post('/api/rmstrike', checkAuth, (req, res) => {
