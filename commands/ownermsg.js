@@ -5,7 +5,7 @@ module.exports = (client, message, args) => {
     if (!config.maintainers.includes(message.author.id)) return;
 
     client.guilds.forEach(g => {
-        g.owner.send({
+        client.users.get(g.ownerID).send({
             embed: {
                 title: `A message from ${message.author.username}:`,
                 description: msg,
