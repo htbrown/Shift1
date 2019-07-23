@@ -28,7 +28,7 @@ module.exports = (client, guilds) => {
     passport.use(new Strategy({
         clientID: require('../config.json').id,
         clientSecret: require('../config.json').secret,
-        callbackURL: `http://localhost/login/callback`,
+        callbackURL: `http://localhost:2020/login/callback`,
         scope: scopes
     }, (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -110,6 +110,7 @@ module.exports = (client, guilds) => {
 
     app.post('/api/prefix', checkAuth, (req, res) => {
         prefix = req.body.prefix;
+        console.log(prefix);
         let guild = guilds.get(req.params.serverID);
         guild.prefix = prefix;
         guilds.set(req.params.serverID, guild);

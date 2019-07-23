@@ -35,7 +35,7 @@
                 Information
             </p>
             <ul class="menu-list">
-                <li><a>Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/info">Info</a></li>
                 <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
             </ul>
             <p class="menu-label">
@@ -54,6 +54,7 @@
                 <li><a>Welcome Mesages</a></li>
                 <li><a>Leave Messages</a></li>
                 <li><a>Logging</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Prefix</a></li>
             </ul>
             <br>
             <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
@@ -61,6 +62,7 @@
     </div>
     <br>
     <div class="has-text-centered" style="padding-left:40px;">
+        <% if (Object.keys(guilds.get(req.params.serverID).strikes).length != 0) { %>
         <table class="table">
             <thead>
                 <tr>
@@ -86,6 +88,9 @@
                 <% }) %>
             </tbody>
         </table>
+        <% } else if (Object.keys(guilds.get(req.params.serverID).strikes).length == 0) { %>
+            <h1 class="title is-1">This place looks empty.</h1>
+        <% } %>
         <br>
     </div>
 </body>

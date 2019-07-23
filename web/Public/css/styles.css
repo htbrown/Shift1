@@ -1,4 +1,4 @@
-@import url('https://thehydrogen.ml/css/bulma.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css');
 
 .header {
     background: linear-gradient(#4c3fc2, #36ee7d);
