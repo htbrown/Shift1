@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        function ban(m,s) {
+            $.post('/api/ban', {
+                member: m,
+                serverID: s
+            })
+
+            reload();
+        }
+
+        function kick(m,s) {
+            $.post('/api/kick', {
+                member: m,
+                serverID: s
+            })
+
+            reload();
+        }
+
+        function mute(m,s) {
+            $.post('/api/mute', {
+                member: m,
+                serverID: s
+            })
+
+            reload();
+        }
+
+        function reload() {
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000)
+        }
+    </script>
+</head>
+<body>
+    <% include Partials/dashboard-banner %>
+    <br>
+    <div class="tabs-panel">
+        <aside class="menu">
+            <p class="menu-label">
+                Information
+            </p>
+            <ul class="menu-list">
+                <li><a href="/dashboard/<%= guild.id %>/info">Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
+            </ul>
+            <p class="menu-label">
+                Administration
+            </p>
+            <ul class="menu-list">
+                <li><a href="/dashboard/<%= guild.id %>/strikes">Strikes</a></li>
+                <li><a class="is-active">Members</a></li>
+            </ul>
+            <p class="menu-label">
+                Settings
+            </p>
+            <ul class="menu-list">
+                <li><a>Welcome Mesages</a></li>
+                <li><a>Leave Messages</a></li>
+                <li><a>Logging</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/prefix">Prefix</a></li>
+            </ul>
+            <br>
+            <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
+        </aside>
+    </div>
+    <br>
+    <div class="has-text-centered center" style="padding-left:40px;">
+        <p class="subtitle">Double click on an action to perform it.</p>
+        <% if (guild.members.length != 0) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><abbr title="Position">Username</abbr></th>
+                    <th><abbr title="Played">ID</abbr></th>
+                    <th><abbr title="Won">Mute</abbr></th>
+                    <th><abbr title="Won">Kick</abbr></th>
+                    <th><abbr title="Won">Ban</abbr></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% guild.members.forEach(member => { %>
+                    <tr>
+                        <th><%= member.user.username %></th>
+                        <td><%= member.id %></strong>
+                        </td>
+                        <td><a id="rmbtn" class="button is-primary" ondblclick="mute('<%= member.id %>', '<%= req.params.serverID %>');">Mute</a></td>
+
+                        <% if (guild.members.get(member.id).kickable) { %>
+                        <td><a id="rmbtn" class="button is-warning" ondblclick="kick('<%= member.id %>', '<%= req.params.serverID %>');">Kick</a></td>
+                        <% } else { %>
+                        <td><a id="rmbtn" class="button is-warning" disabled>Kick</a></td>
+                        <% } %>
+
+                        <% if (guild.members.get(member.id).bannable) { %>
+                        <td><a id="rmbtn" class="button is-danger" ondblclick="ban('<%= member.id %>', '<%= req.params.serverID %>');">Ban</a></td>
+                        <% } else { %>
+                        <td><a id="rmbtn" class="button is-danger" disabled>Ban</a></td>
+                        <% } %>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <% } else if (guild.members.length == 0) { %>
+            <h1 class="title is-1">This place looks empty.</h1>
+        <% } %>
+        <br>
+    </div>
+</body>
+</html>

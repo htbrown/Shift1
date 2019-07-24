@@ -126,6 +126,28 @@ module.exports = (client, guilds) => {
         delete guilds.get(guildID).strikes[userID][strikeID];
     })
 
+    app.post('/api/ban', checkAuth, (req, res) => {
+        let member = req.body.member;
+        let serverID = req.body.serverID;
+
+        try {
+            client.guilds.get(serverID).members.get(member).ban();
+        } catch(e) {
+            logger.error(e);
+        }
+    })
+
+    app.post('/api/kick', checkAuth, (req, res) => {
+        let member = req.body.member;
+        let serverID = req.body.serverID;
+
+        try {
+            client.guilds.get(serverID).members.get(member).kick();
+        } catch(e) {
+            logger.error(e);
+        }
+    })
+
     app.get('/logout', checkAuth, (req, res) => {
         req.logout();
         res.redirect('/');
