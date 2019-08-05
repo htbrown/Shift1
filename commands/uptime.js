@@ -6,4 +6,9 @@ module.exports = async (client, message, args) => {
     let minutes = Math.floor(totalSeconds / 60);
     let seconds = Math.floor(totalSeconds % 60);
     client.util.embed(client, message, `I've been running for ${days} days, ${hours} hrs, ${minutes} mins and ${seconds} secs.`)
+};
+
+module.exports.info = {
+    description: 'Shows the uptime of the bot.',
+    usage: 'uptime'
 }
