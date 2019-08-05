@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,4 +95,100 @@
         <br>
     </div>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        function rmStrike(guildID, userID, strikeID) {
+            let rmbtn = document.getElementById('rmbtn');
+
+            $.post('/api/rmstrike', {
+                guildID, userID, strikeID
+            });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <% include Partials/dashboard-banner %>
+    <br>
+    <div class="tabs-panel">
+        <aside class="menu">
+            <p class="menu-label">
+                Information
+            </p>
+            <ul class="menu-list">
+                <li><a href="/dashboard/<%= guild.id %>/info">Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
+            </ul>
+            <p class="menu-label">
+                Administration
+            </p>
+            <ul class="menu-list">
+                <li><a class="is-active">Strikes</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/members">Members</a></li>
+            </ul>
+            <p class="menu-label">
+                Settings
+            </p>
+            <ul class="menu-list">
+                <li><a>Welcome Mesages</a></li>
+                <li><a>Leave Messages</a></li>
+                <li><a>Logging</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/prefix">Prefix</a></li>
+            </ul>
+            <br>
+            <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
+        </aside>
+    </div>
+    <br>
+    <div class="has-text-centered center" style="padding-left:40px;">
+        <% if (Object.keys(guilds.get(req.params.serverID).strikes).length != 0) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><abbr title="Position">Author</abbr></th>
+                    <th><abbr title="Played">Reason</abbr></th>
+                    <th><abbr title="Won">ID</abbr></th>
+                    <th><abbr title="Won">Stricken</abbr></th>
+                    <th><abbr title="Won">Delete</abbr></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% Object.keys(guilds.get(req.params.serverID).strikes).forEach(userID => { %>
+                    <% Object.keys(guilds.get(req.params.serverID).strikes[userID]).forEach(strike => { %>
+                        <tr>
+							<th><%= client.users.get(guilds.get(req.params.serverID).strikes[userID][strike].strikedBy.replace('<@', '').replace('>', '')).tag %></th>
+							<td><%= guilds.get(req.params.serverID).strikes[userID][strike].reason %></strong>
+							</td>
+                            <td><%= strike %></td>
+                            <td><%= client.users.get(userID).username %></td>
+                            <td><a id="rmbtn" class="button is-danger" onclick="rmStrike('<%= req.params.serverID %>', '<%= userID %>', '<%= strike %>');">Remove strike</a></td>
+						</tr>
+                    <% }) %>
+                <% }) %>
+            </tbody>
+        </table>
+        <% } else if (Object.keys(guilds.get(req.params.serverID).strikes).length == 0) { %>
+            <h1 class="title is-1">This place looks empty.</h1>
+        <% } %>
+        <br>
+    </div>
+</body>
+>>>>>>> 73977dd062a5d674e1b91ed7aa7dc25f8ec1f7aa
 </html>

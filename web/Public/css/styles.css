@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css');
 
 .header {
@@ -18,3 +19,31 @@
 .server-icon-dashboard {
     border-radius: 50%;
 }
+=======
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css');
+
+.header {
+    background: linear-gradient(#4c3fc2, #36ee7d);
+    height: 100vh;
+}
+
+::selection {
+    background-color: lightskyblue;
+}
+
+.tabs-panel {
+    padding-left: 30px;
+    width: 300px;
+    float: left;
+}
+
+.server-icon-dashboard {
+    border-radius: 50%;
+}
+
+.center {
+    margin: auto;
+    width: 20%;
+    padding: 30px;
+  }
+>>>>>>> 73977dd062a5d674e1b91ed7aa7dc25f8ec1f7aa

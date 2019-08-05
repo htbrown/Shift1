@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,4 +82,89 @@
         </div>
     </div>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"
+    ></script>
+
+    <script>
+        function submit(serverID) {
+            let prefix = document.getElementById('prefixForm').value;
+
+            if (prefix) {
+                $.post('/api/prefix', {
+                    prefix,
+                    serverID
+                })
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            } else {
+                console.log('jeff')
+            }
+        }
+    </script>
+</head>
+<body>
+    <% include Partials/dashboard-banner %>
+    <br>
+    <div class="tabs-panel">
+        <aside class="menu">
+            <p class="menu-label">
+                Information
+            </p>
+            <ul class="menu-list">
+                <li><a href="/dashboard/<%= guild.id %>/info">Info</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/bot">Bot</a></li>
+            </ul>
+            <p class="menu-label">
+                Administration
+            </p>
+            <ul class="menu-list">
+                <li><a href="/dashboard/<%= guild.id %>/strikes">Strikes</a></li>
+                <li><a href="/dashboard/<%= guild.id %>/members">Members</a></li>            </ul>
+            <p class="menu-label">
+                Settings
+            </p>
+            <ul class="menu-list">
+                <li><a>Welcome Mesages</a></li>
+                <li><a>Leave Messages</a></li>
+                <li><a>Logging</a></li>
+                <li><a class="is-active">Prefix</a></li>
+            </ul>
+            <br>
+            <p class="has-text-centered">The dashboard is still in Beta, expect bugs and slow performance. <a href="">Want to report said bugs?</a></p>
+        </aside>
+    </div>
+    <br>
+    <div class="has-text-centered ">
+        <center>
+        <h1 class="title is-2 has-text-centered">Change your prefix.</h1>
+        <br>
+        <div class="field has-addons center">
+            <div class="control"> <!--  style="padding-left:47vh;" -->
+              <input id="prefixForm" class="input is-rounded" type="text" placeholder="Current prefix: <%= guilds.get(req.params.serverID).prefix %>">
+            </div>
+            <div class="control">
+              <a onclick="submit('<%= req.params.serverID %>');" class="button is-info is-rounded">
+                Change
+              </a>
+            </div>
+        </div>
+        </center>
+    </div>
+</body>
+>>>>>>> 73977dd062a5d674e1b91ed7aa7dc25f8ec1f7aa
 </html>

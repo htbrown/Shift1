@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,4 +23,34 @@
         <% } %>
     </section>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Shift Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+</head>
+<body>
+    <section class="header has-text-centered">
+        <div style="padding-top:45vh;"></div>
+        <% if (error === 'DASHBOARD_SERVER_PAGE_LOAD_FAIL') { %>
+            <h1 class="title is-1" style="color:white;">This doesn't look right.</h1>
+            <p class="subtitle" style="color:white;">The dashboard page failed to load and we're not sure why. Please contact the devs on the Discord server.</p>
+            <p>Error Code: 0x2020</p>
+        <% } else if (error === 'DASHBOARD_MEMBER_ACTION_FAIL') { %>
+            <h1 class="title is-1" style="color:white;">This doesn't look right.</h1>
+            <p class="subtitle" style="color:white;">Something went wrong while performing this action on this member. This is probably because I do not have the proper permissions.</p>
+            <p>Error Code: 0x4040</p>
+        <% } else { %>
+            <h1 class="title is-1" style="color:white;">This doesn't look right.</h1>
+            <p class="subtitle" style="color:white;">Something went wrong and I don't have the slightest clue why. Retry again later.</p>
+            <p>Error Code: 0x3030</p>
+        <% } %>
+    </section>
+</body>
+>>>>>>> 73977dd062a5d674e1b91ed7aa7dc25f8ec1f7aa
 </html>

@@ -28,7 +28,7 @@ module.exports = (client, guilds) => {
     passport.use(new Strategy({
         clientID: require('../config.json').id,
         clientSecret: require('../config.json').secret,
-        callbackURL: `http://localhost:2020/login/callback`,
+        callbackURL: `http://dash.shiftbot.xyz:2020/login/callback`,
         scope: scopes
     }, (accessToken, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -109,11 +109,13 @@ module.exports = (client, guilds) => {
     })
 
     app.post('/api/prefix', checkAuth, (req, res) => {
+        logger.info(`Prefix change requested: ${guilds.get(req.body.serverID).prefix} to ${req.body.prefix} (${client.guilds.get(req.body.serverID).name} - ${req.body.serverID})`)
+
         prefix = req.body.prefix;
         console.log(prefix);
-        let guild = guilds.get(req.params.serverID);
+        let guild = guilds.get(req.body.serverID);
         guild.prefix = prefix;
-        guilds.set(req.params.serverID, guild);
+        guilds.set(req.body.serverID, guild);
     })
 
     app.post('/api/rmstrike', checkAuth, (req, res) => {
@@ -122,6 +124,28 @@ module.exports = (client, guilds) => {
         let guildID = req.body.guildID;
 
         delete guilds.get(guildID).strikes[userID][strikeID];
+    })
+
+    app.post('/api/ban', checkAuth, (req, res) => {
+        let member = req.body.member;
+        let serverID = req.body.serverID;
+
+        try {
+            client.guilds.get(serverID).members.get(member).ban();
+        } catch(e) {
+            logger.error(e);
+        }
+    })
+
+    app.post('/api/kick', checkAuth, (req, res) => {
+        let member = req.body.member;
+        let serverID = req.body.serverID;
+
+        try {
+            client.guilds.get(serverID).members.get(member).kick();
+        } catch(e) {
+            logger.error(e);
+        }
     })
 
     app.get('/logout', checkAuth, (req, res) => {
