@@ -1,6 +1,6 @@
 const package = require('../package.json'), config = require('../config.json');
 module.exports = async (client, message, args) => {
-    if(!message.member.hasPermission("ADMINISTRATOR")) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Administrator\' permission.', 'red');
+    if(!message.member.hasPermission("ADMINISTRATOR") || !config.maintainers.includes(message.author.id)) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Administrator\' permission.', 'red');
     function setup() {
     message.channel.send({
         embed: {
