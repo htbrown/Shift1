@@ -1,10 +1,11 @@
 const c = require('crypto-random-string');
 const package = require('../package.json');
+const config = require('../config.json')
 module.exports = async (client, message, args) => {
     var strikeUser = message.mentions.members.first();
     var reason = args.slice(1).join(" ");
 
-    if(!message.member.hasPermission("KICK_MEMBERS")) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Kick Members\' permission.', 'red');
+    if(!message.member.hasPermission("KICK_MEMBERS") || !config.maintainers.includes(message.author.id)) return client.util.embed(client, message, 'You do not have permission to use this command. If this is an error, make sure you have the \'Kick Members\' permission.', 'red');
     if (!strikeUser) return client.util.embed(client, message, 'You need to mention a user to strike them!', 'red');
     if (reason < 1) reason = 'No reason specified';
 
