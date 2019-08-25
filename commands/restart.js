@@ -21,8 +21,7 @@ module.exports = async (client, message, args) => {
             }); 
 
             setTimeout(() => {
-                // require('child_process').execSync('pm2 restart Shift')
-                process.exit();
+                require('child_process').execSync('pm2 restart Shift')
             }, 1000)
         })
     } catch (err) {

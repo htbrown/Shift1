@@ -9,7 +9,7 @@ module.exports = (client) => {
 
         if (!data) return;
 
-        if (data) {
+        if (data && data !== '{}' || data !== '{ }') {
             let reData = require('../restart.json');
             let guild = client.guilds.get(reData.guildID);
             let channel = guild.channels.get(reData.channelID)
