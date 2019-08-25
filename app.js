@@ -24,6 +24,7 @@ function sleep(milliseconds) {
 }
 
 client.on('ready', () => {
+    require('./modules/restartHandler')(client);
     var status = 0;
     client.setInterval(() => {
         switch(status) {
