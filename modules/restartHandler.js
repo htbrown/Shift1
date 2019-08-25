@@ -7,7 +7,7 @@ module.exports = (client) => {
             return console.log('Failed to do something to do with FS I guess')
         }
 
-        if (!data) return;
+        if (!data || data == '{ }' || data == '{}') return;
 
         if (data && data !== '{}' || data !== '{ }') {
             let reData = require('../restart.json');
