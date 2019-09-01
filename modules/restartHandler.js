@@ -10,7 +10,6 @@ module.exports = (client) => {
         if (!data || data == '{ }' || data == '{}') return;
 
         if (data && data !== '{}' || data !== '{ }') {
-            const package = require('../package.json');
             let reData = require('../restart.json');
             let guild = client.guilds.get(reData.guildID);
             let channel = guild.channels.get(reData.channelID)
