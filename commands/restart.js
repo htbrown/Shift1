@@ -1,8 +1,8 @@
 const config = require('../config.json');
-const package = require('../package.json');
 module.exports = async (client, message, args) => {
     if (!config.maintainers.includes(message.author.id)) return client.util.embed(client, message, '*Oi!* You\'re not supposed to be here! Get lost!', 'red');
     try {
+        const package = require('../package.json');
         message.channel.send({
             embed: {
                 author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
