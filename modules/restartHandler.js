@@ -1,5 +1,6 @@
 const fs = require('fs');
 const moment = require('moment');
+const package = require('../package.json');
 
 module.exports = (client) => {
     fs.readFile(`${__dirname}/../restart.json`, { encoding: 'utf-8' }, (err, data) => {
