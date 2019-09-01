@@ -17,9 +17,11 @@ module.exports = (client) => {
                 .then(msg => {
                     msg.edit({
                         embed: {
-                            color: 0x00ff00,
-                            title: ':white_check_mark: Success!',
-                            description: `This took \`${moment(new Date()).unix() - moment(reData.restarted).unix()} seconds\` `
+                            author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
+                            footer: {text: `v${package.version}`},
+                            color: 0x2ecc71,
+                            title: 'Success!',
+                            description: `This took \`${moment(new Date()).unix() - moment(reData.restarted).unix()} seconds\` ` 
                         }
                     })
                 })

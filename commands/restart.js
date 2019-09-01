@@ -4,11 +4,10 @@ module.exports = async (client, message, args) => {
     try {
         message.channel.send({
             embed: {
+                author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
+                footer: {text: `If this action failed, an error message will be sent | v${package.version}`},
                 description: 'Restarting... This may take a bit!',
                 color: 0x36393F,
-                footer: {
-                    text: 'If this action failed, an error message will be sent.'
-                }
             }
         }).then(ctx => {
             const fs = require('fs');
@@ -30,6 +29,6 @@ module.exports = async (client, message, args) => {
 }
 
 module.exports.info = {
-    description: 'Restarts the bot.',
+    description: 'Restarts the bot. Maintainer Only',
     usage: 'restart'
 }
