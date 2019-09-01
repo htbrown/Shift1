@@ -1,4 +1,5 @@
 const config = require('../config.json');
+const package = require('../package.json');
 module.exports = async (client, message, args) => {
     if (!config.maintainers.includes(message.author.id)) return client.util.embed(client, message, '*Oi!* You\'re not supposed to be here! Get lost!', 'red');
     try {
