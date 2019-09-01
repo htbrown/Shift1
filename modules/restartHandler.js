@@ -1,6 +1,5 @@
 const fs = require('fs');
 const moment = require('moment');
-const package = require('../package.json');
 
 module.exports = (client) => {
     fs.readFile(`${__dirname}/../restart.json`, { encoding: 'utf-8' }, (err, data) => {
@@ -11,6 +10,7 @@ module.exports = (client) => {
         if (!data || data == '{ }' || data == '{}') return;
 
         if (data && data !== '{}' || data !== '{ }') {
+            const package = require('../package.json');
             let reData = require('../restart.json');
             let guild = client.guilds.get(reData.guildID);
             let channel = guild.channels.get(reData.channelID)
@@ -19,7 +19,7 @@ module.exports = (client) => {
                     msg.edit({
                         embed: {
                             author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
-                            footer: {text: `v${package.version}`},
+                            footer: {text: `v${require('../package.json').version}`},
                             color: 0x2ecc71,
                             title: 'Success!',
                             description: `This took \`${moment(new Date()).unix() - moment(reData.restarted).unix()} seconds\` ` 

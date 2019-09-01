@@ -6,7 +6,7 @@ module.exports = async (client, message, args) => {
         message.channel.send({
             embed: {
                 author: {name: `Hey ${message.author.username}`, icon_url: message.author.avatarURL},
-                footer: {text: `If this action failed, an error message will be sent | v${package.version}`},
+                footer: {text: `If this action failed, an error message will be sent | v${require('../package.json').version}`},
                 description: 'Restarting... This may take a bit!',
                 color: 0x36393F,
             }
