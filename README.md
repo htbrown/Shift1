@@ -1,5 +1,7 @@
 # Shift v1
 
+## I DO NOT RECOMMEND HOSTING THIS BOT (for a more up to date Shift, check out [Shift²](https://htbr.me/shift))
+
 You lot asked for it, so here it is.  
 Don't bully me for my bad code.
 
