@@ -1,7 +1,7 @@
 # Shift v1
 
->>> **Deprecation Notice** - this code is old and will not be maintained. Any pull requests or issues will not be seen. I would not recommend running this bot. 
->>> Instead, I would recommend using **[Shift²](https://htbr.me/shift)**
+> **Deprecation Notice** - this code is old and will not be maintained. Any pull requests or issues will not be seen. I would not recommend running this bot. 
+> Instead, I would recommend using **[Shift²](https://htbr.me/shift)**
 
 ## ./config.json
 
