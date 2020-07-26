@@ -1,12 +1,7 @@
 # Shift v1
 
-## I DO NOT RECOMMEND HOSTING THIS BOT (for a more up to date Shift, check out [Shift²](https://htbr.me/shift))
-
-You lot asked for it, so here it is.  
-Don't bully me for my bad code.
-
-Web is far from finished, so I wouldn't use it.  
-Bot won't be updated or supported, so you can edit it if you want but make sure to follow the license.
+>>> **Deprecation Notice** - this code is old and will not be maintained. Any pull requests or issues will not be seen. I would not recommend running this bot. 
+>>> Instead, I would recommend using **[Shift²](https://htbr.me/shift)**
 
 ## ./config.json
 
